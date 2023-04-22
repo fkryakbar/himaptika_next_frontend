@@ -16,7 +16,7 @@ export default function Navbar() {
 
                     </button>
                 </Link>
-                <div className={`lg:flex lg:flex-row lg:my-0 flex-col gap-3 text-white flex ${isOpen ? 'h-[150px] my-2' : 'h-0 overflow-hidden'} lg:h-fit transition-all`}>
+                <div className={`lg:flex lg:flex-row lg:my-0 flex-col gap-3 lg:overflow-visible text-white flex ${isOpen ? 'h-[150px] my-2' : 'h-0 overflow-hidden'} lg:h-fit transition-all`}>
                     <div>
                         <Link href="/">Beranda</Link>
                     </div>
@@ -34,8 +34,8 @@ export default function Navbar() {
                             <label tabIndex={0} className="hover:cursor-pointer">Tentang</label>
                             <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 text-slate-700">
                                 <li><a className='pointer-events-none text-slate-300'>Sejarah</a></li>
-                                <li><Link href="/">Struktur Organisasi</Link></li>
-                                <li><Link href="/">Divisi-divisi</Link></li>
+                                <li><Link href="/blog/susunan-kepengurusan-himaptika-fkip-ulm-20222023">Struktur Organisasi</Link></li>
+                                <li><Link href="/blog/divisi-divisi-yang-ada-di-himaptika-fkip-ulm-periode-20222023">Divisi-divisi</Link></li>
                             </ul>
                         </div>
                     </div>
