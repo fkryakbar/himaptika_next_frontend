@@ -55,9 +55,9 @@ export default function Home({ posts }: { posts: Response }) {
             <div className="flex flex-col lg:flex-row gap-4">
               {
                 posts.data.map((post: any, index: number) => {
-                  return (<a href={`/blog/${post.slug}`}>
-                    <div key={index} className="rounded-xl drop-shadow overflow-clip bg-white pb-1">
-                      <img src={`https://himaptika-api.ninepmx.my.id/${post.image_path}`} alt="dump" className="basis-[30%]" />
+                  return (<Link key={post.id} href={`/blog/${post.slug}`}>
+                    <div className="rounded-xl drop-shadow overflow-clip bg-white pb-1">
+                      <img src={`${post.image_path}`} alt="dump" className="basis-[30%]" />
                       <div className="my-5 text-himaptika mx-3">
                         <h1 className="font-semibold text-xl">
                           {post.title}
@@ -70,7 +70,7 @@ export default function Home({ posts }: { posts: Response }) {
                         </div>
                       </div>
                     </div>
-                  </a>)
+                  </Link>)
 
                 })
               }
@@ -104,7 +104,7 @@ export default function Home({ posts }: { posts: Response }) {
                   Struktur Organisasi HIMAPTIKA FKIP ULM Periode 2023-2024
                 </h1>
                 <p className="text-sm my-2">Klik selengkapnya untuk mengetahui struktur Organisasi HIMAPTIKA FKIP ULM</p>
-                <p className="text-sm">Selengkapnya...</p>
+                <Link href="/blog/susunan-kepengurusan-himaptika-fkip-ulm-20222023" className="text-sm">Selengkapnya...</Link>
               </div>
             </div>
             <div className="flex justify-between items-center mt-3">
@@ -131,7 +131,7 @@ export default function Home({ posts }: { posts: Response }) {
                   Apa itu IKAHIMATIKA?
                 </h1>
                 <p className="text-sm my-2">Klik selengkapnya untuk mengetahui apa itu IKAHIMATIKA</p>
-                <p className="text-sm">Selengkapnya...</p>
+                <Link href="/blog/apa-itu-ikahimatika" className="text-sm">Selengkapnya...</Link>
               </div>
             </div>
           </div>

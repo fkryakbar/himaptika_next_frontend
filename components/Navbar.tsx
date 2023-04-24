@@ -7,15 +7,17 @@ export default function Navbar() {
     return (
         <nav className='bg-himaptika w-full p-2 text-sm drop-shadow-md'>
             <div className='lg:w-[80%] mx-auto lg:flex justify-between items-center'>
-                <Link href="/" className='flex justify-between'>
-                    <img src={weblogo.src} className='w-[150px]' alt="" />
+                <div className='flex justify-between'>
+                    <Link href="/">
+                        <img src={weblogo.src} className='w-[150px]' alt="" />
+                    </Link>
                     <button onClick={e => { setOpen(!isOpen) }} className='btn bg-himaptika border-0 hover:bg-red-900  lg:hidden'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
 
                     </button>
-                </Link>
+                </div>
                 <div className={`lg:flex lg:flex-row lg:my-0 flex-col gap-3 lg:overflow-visible text-white flex ${isOpen ? 'h-[150px] my-2' : 'h-0 overflow-hidden'} lg:h-fit transition-all`}>
                     <div>
                         <Link href="/">Beranda</Link>
