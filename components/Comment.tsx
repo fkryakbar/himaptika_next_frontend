@@ -23,7 +23,7 @@ function Comment({ params }: { params: string }) {
     }
     useEffect(() => {
         fetch_data(params)
-    }, [router.query.slug])
+    }, [router.query.slug, params])
 
 
     return (

@@ -9,6 +9,7 @@ import moment from "moment"
 import { useRouter } from "next/router"
 import Sidebar from "@/components/Sidebar"
 import svgError from '@/public/404.svg'
+import Image from "next/image"
 
 export async function getServerSideProps(context: any) {
     let page = 1;
@@ -79,8 +80,8 @@ export default function Home({ posts }: { posts: any }) {
                                         <Link href={`blog/${post.slug}`} key={post.id}>
                                             <div className="my-3">
                                                 <div className="flex lg:flex-row flex-col gap-3 items-center text-slate-700">
-                                                    <div className="basis-[20%]">
-                                                        <img src={post.image_path} alt="Thumb" />
+                                                    <div className="basis-[20%] w-full">
+                                                        <Image className="w-[100%]" width={300} height={300} src={post.image_path} alt="Thumb" />
                                                     </div>
                                                     <div className="basis-[80%]">
                                                         <h1 className="text-xl font-semibold">
@@ -105,7 +106,7 @@ export default function Home({ posts }: { posts: any }) {
                                     )
                                 }) : (
                                     <div className=''>
-                                        <img src={svgError.src} alt="err" className='w-[200px] mx-auto' />
+                                        <Image width={300} height={300} src={svgError.src} alt="err" className='w-[200px] mx-auto' />
                                         <p className='text-slate-700 font-semibold text-center mt-3'>
                                             Blog tidak ditemukan
                                         </p>

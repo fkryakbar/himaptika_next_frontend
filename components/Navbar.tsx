@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import weblogo from '../public/Weblogo.png'
 import { useState } from "react"
+import Image from 'next/image';
 
 export default function Navbar() {
     const [isOpen, setOpen] = useState(false)
@@ -9,7 +10,7 @@ export default function Navbar() {
             <div className='lg:w-[80%] mx-auto lg:flex justify-between items-center'>
                 <div className='flex justify-between'>
                     <Link href="/">
-                        <img src={weblogo.src} className='w-[150px]' alt="" />
+                        <Image width={300} height={300} src={weblogo.src} className='w-[150px]' alt="" />
                     </Link>
                     <button onClick={e => { setOpen(!isOpen) }} className='btn bg-himaptika border-0 hover:bg-red-900  lg:hidden'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

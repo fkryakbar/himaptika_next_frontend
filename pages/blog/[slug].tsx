@@ -9,6 +9,7 @@ import React, { useEffect } from 'react'
 import svgError from '@/public/404.svg'
 import Comment from '@/components/Comment'
 import axios from 'axios'
+import Image from 'next/image'
 export async function getServerSideProps(context: any) {
     const slug = context.params.slug
     const data = await fetch(`${process.env.API_URL}/api/v1/read-post/${slug}`)
@@ -101,7 +102,7 @@ function Read({ data, post_slug }: any) {
                                             </div>
                                         </div>
                                         <div className='mt-5'>
-                                            <img src={post.image_path} alt="thumb" className='lg:max-w-[400px] mx-auto rounded' />
+                                            <Image width={300} height={300} src={post.image_path} alt="thumb" className='lg:w-[300px] w-[80%] mx-auto rounded' />
                                             <div className='mt-3' dangerouslySetInnerHTML={{ __html: post.content }}>
 
                                             </div>
@@ -109,7 +110,7 @@ function Read({ data, post_slug }: any) {
                                     </div>
                                 ) : (
                                     <div className=''>
-                                        <img src={svgError.src} alt="err" className='w-[200px] mx-auto' />
+                                        <Image width={300} height={300} src={svgError.src} alt="err" className='w-[200px] mx-auto' />
                                         <p className='text-slate-700 font-semibold text-center mt-3'>
                                             Blog tidak ditemukan
                                         </p>

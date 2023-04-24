@@ -5,6 +5,7 @@ import Himaptika from '../public/Himaptika.png'
 import Footer from "@/components/Footer"
 import DumpImage from '../public/twUyWX4PeHeQQhH9Z63v8zKZ5okK1lc1792EXuMy.jpg'
 import Link from "next/link"
+import Image from "next/image"
 
 interface Response {
   code: number,
@@ -31,7 +32,7 @@ export default function Home({ posts }: { posts: Response }) {
       <Navbar />
       <Hero>
         <div className="pb-5 pt-10 ">
-          <img src={Himaptika.src} alt="Main Logo" className="w-[150px] mx-auto" />
+          <Image width={300} height={300} src={Himaptika.src} alt="Main Logo" className="w-[150px] mx-auto" />
           <div className="text-white text-center mt-3">
             <h1 className="text-5xl  font-bold drop-shadow-[-3px_3px_0px_rgb(255,111,0)]">HIMAPTIKA</h1>
             <h1 className="font-semibold lg:text-base text-sm mt-3">FAKULTAS KEGURUAN DAN ILMU PENDIDIKAN</h1>
@@ -57,7 +58,7 @@ export default function Home({ posts }: { posts: Response }) {
                 posts.data.map((post: any, index: number) => {
                   return (<Link key={post.id} href={`/blog/${post.slug}`}>
                     <div className="rounded-xl drop-shadow overflow-clip bg-white pb-1">
-                      <img src={`${post.image_path}`} alt="dump" className="basis-[30%]" />
+                      <Image width={300} height={300} src={`${post.image_path}`} alt="dump" className="basis-[30%] w-full" />
                       <div className="my-5 text-himaptika mx-3">
                         <h1 className="font-semibold text-xl">
                           {post.title}
