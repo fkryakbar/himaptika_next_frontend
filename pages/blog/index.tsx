@@ -1,9 +1,7 @@
 import Hero from "@/components/Hero"
 import Navbar from "@/components/Navbar"
 import Head from "next/head"
-import Himaptika from '@/public/Himaptika.png'
 import Footer from "@/components/Footer"
-import DumpImage from '@/public/twUyWX4PeHeQQhH9Z63v8zKZ5okK1lc1792EXuMy.jpg'
 import Link from "next/link"
 import moment from "moment"
 import { useRouter } from "next/router"
@@ -21,7 +19,11 @@ export async function getServerSideProps(context: any) {
         search = context.query.search
     }
     const res = await fetch(`${process.env.API_URL}/api/v1/posts?page=${page}&search=${search}`)
-    const data = await res.json()
+    const data = await res.json();
+    moment.locale('id_ID')
+    data.data.data.map((post: any) => {
+        post.created_at = moment(post.created_at).fromNow();
+    })
     return {
         props: { posts: data }
     }
@@ -92,10 +94,7 @@ export default function Home({ posts }: { posts: any }) {
                                                         </p>
                                                         <div className="flex gap-3 mt-3 text-[10px]">
                                                             <div className="bg-himaptika py-1 px-2 rounded-md text-white font-semibold">
-                                                                Published : {moment(post.created_at).format('DD-MM-YYYY')}
-                                                            </div>
-                                                            <div className="bg-himaptika py-1 px-2 rounded-md text-white font-semibold">
-                                                                Updated At : {moment(post.updated_at).format('DD-MM-YYYY')}
+                                                                Published : {post.created_at}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -119,7 +118,7 @@ export default function Home({ posts }: { posts: any }) {
                                                 <ul className="list-style-none flex">
                                                     <li>
                                                         <Link
-                                                            className={`${posts.data.current_page - 1 == 0 ? 'pointer-events-none' : ''} relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white`}
+                                                            className={`${posts.data.current_page - 1 == 0 ? 'pointer-events-none' : ''} relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 `}
                                                             href={{ pathname: 'blog', query: { page: posts.data.current_page - 1 == 0 ? 1 : posts.data.current_page - 1 } }} >Previous</Link>
                                                     </li>
                                                     {posts.data.links.map((link: any, key: number) => {
@@ -127,7 +126,7 @@ export default function Home({ posts }: { posts: any }) {
                                                             return (
                                                                 <li key={key}>
                                                                     <Link href={{ pathname: 'blog', query: { page: link.label } }}
-                                                                        className={`${link.label == posts.data.current_page ? 'text-himaptika' : 'text-neutral-500'} relative block rounded bg-transparent px-3 py-1.5 text-sm  transition-all duration-300 dark:text-neutral-400`}
+                                                                        className={`${link.label == posts.data.current_page ? 'text-himaptika' : 'text-neutral-500'} relative block rounded bg-transparent px-3 py-1.5 text-sm  transition-all duration-300 `}
                                                                     >{link.label}</Link>
                                                                 </li>
                                                             )
@@ -135,7 +134,7 @@ export default function Home({ posts }: { posts: any }) {
                                                     }
                                                     <li>
                                                         <Link
-                                                            className={`${posts.data.current_page + 1 > posts.data.last_page ? 'pointer-events-none' : ''} relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white`}
+                                                            className={`${posts.data.current_page + 1 > posts.data.last_page ? 'pointer-events-none' : ''} relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 `}
                                                             href={{ pathname: 'blog', query: { page: posts.data.current_page + 1 > posts.data.last_page ? posts.data.last_page : posts.data.current_page + 1 } }} >Next</Link>
                                                     </li>
                                                 </ul>
