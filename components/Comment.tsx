@@ -11,7 +11,7 @@ function Comment({ params }: { params: string }) {
     const [isFound, setFound] = useState(false)
     const router = useRouter()
     const fetch_data = async (slug: string) => {
-        const { data } = await axios.get(`https://himaptika-api.ninepmx.my.id/api/v1/comments/${slug}`);
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/comments/${slug}`);
         if (data.code == 200) {
             setComments(data.data.data);
             setFound(true)

@@ -18,7 +18,7 @@ export async function getServerSideProps(context: any) {
     if (context.query.search) {
         search = context.query.search
     }
-    const res = await fetch(`${process.env.API_URL}/api/v1/posts?page=${page}&search=${search}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts?page=${page}&search=${search}`)
     const data = await res.json();
     moment.locale('id_ID')
     data.data.data.map((post: any) => {

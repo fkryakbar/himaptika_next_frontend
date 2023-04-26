@@ -13,7 +13,7 @@ function Index() {
     const [data, setData] = useState([])
     const [isFound, setIsFound] = useState(false)
     const fetch_data = async () => {
-        const { data } = await axios.get('https://himaptika-api.ninepmx.my.id/api/v1/announcements');
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/announcements`);
         if (data.code == 200) {
             setData(data.data)
             setIsFound(true)

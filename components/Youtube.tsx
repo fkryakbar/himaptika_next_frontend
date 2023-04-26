@@ -9,7 +9,7 @@ function Youtube() {
     const [isLoading, setIsLoading] = useState(true);
     const [video_id, setVideo_id] = useState('');
     const fetch_data = async () => {
-        const data = await axios.get('https://himaptika-api.ninepmx.my.id/api/v1/youtube_link');
+        const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/youtube_link`);
         setVideo_id(data.data.data.video_id);
         setIsLoading(false)
     }

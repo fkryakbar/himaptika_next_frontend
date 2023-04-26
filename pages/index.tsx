@@ -3,7 +3,6 @@ import Navbar from "@/components/Navbar"
 import Head from "next/head"
 import Himaptika from '../public/Himaptika.png'
 import Footer from "@/components/Footer"
-import DumpImage from '../public/twUyWX4PeHeQQhH9Z63v8zKZ5okK1lc1792EXuMy.jpg'
 import Link from "next/link"
 import Image from "next/image"
 
@@ -14,7 +13,7 @@ interface Response {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch(`${process.env.API_URL}/api/v1/posts?limit=3`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts?limit=3`)
   const data = await res.json()
   return {
     props: { posts: data }
@@ -56,7 +55,7 @@ export default function Home({ posts }: { posts: Response }) {
             <div className="flex flex-col lg:flex-row gap-4">
               {
                 posts.data.map((post: any, index: number) => {
-                  return (<Link key={post.id} href={`/blog/${post.slug}`}>
+                  return (<Link key={post.id} href={`/blog/${post.slug}`} className="basis-[33%]">
                     <div className="rounded-xl drop-shadow overflow-clip bg-white pb-1">
                       <Image width={300} height={300} src={`${post.image_path}`} alt="dump" className="basis-[30%] w-full" />
                       <div className="my-5 text-himaptika mx-3">

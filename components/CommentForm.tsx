@@ -24,7 +24,7 @@ function CommentForm() {
             email: email,
             comment: comment,
         }
-        const post_data = await axios.post(`https://himaptika-api.ninepmx.my.id/api/v1/comments/${router.query.slug}`, data);
+        const post_data = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/comments/${router.query.slug}`, data);
         setIsDisabled(false);
         setName('');
         setEmail('');

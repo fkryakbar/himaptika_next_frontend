@@ -12,7 +12,7 @@ import axios from 'axios'
 import Image from 'next/image'
 export async function getServerSideProps(context: any) {
     const slug = context.params.slug
-    const data = await fetch(`${process.env.API_URL}/api/v1/read-post/${slug}`)
+    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/read-post/${slug}`)
     const json = await data.json()
     update_views(slug)
     moment.locale('id_ID');
@@ -25,7 +25,7 @@ export async function getServerSideProps(context: any) {
     }
 }
 const update_views = async (post_slug: string) => {
-    const { data } = await axios.post(`https://himaptika-api.ninepmx.my.id/api/v1/views/${post_slug}`, { number: 1 });
+    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/views/${post_slug}`, { number: 1 });
 }
 
 function Read({ data, post_slug }: any) {
@@ -42,7 +42,7 @@ function Read({ data, post_slug }: any) {
                 <div className="pb-5 pt-10 ">
                     <div className="flex justify-between items-center text-white gap-5">
                         <div>
-                            <h1 className="lg:text-5xl text-3xl z-[0]  font-bold drop-shadow-[-3px_3px_0px_rgb(255,111,0)]">{data.code == 200 ? post.title : (<p>Blog tidak ditemukan</p>)}</h1>
+                            <h1 className="lg:text-5xl text-3xl font-bold">{data.code == 200 ? post.title : (<p>Blog tidak ditemukan</p>)}</h1>
                             <div className="font-semibold lg:text-base text-xs mt-3 flex items-center gap-3">
                                 {
                                     data.code == 200 ? (<>

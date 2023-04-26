@@ -8,8 +8,7 @@ function RandomPost() {
     const [posts, setPosts] = useState([]);
     const router = useRouter()
     const fetch_data = async () => {
-        // const data = await axios.get('https://himaptika-api.ninepmx.my.id/api/v1/random-posts')
-        const data = await fetch('https://himaptika-api.ninepmx.my.id/api/v1/random-posts');
+        const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/random-posts`);
         const response = await data.json();
         setPosts(response.data)
         setIsLoading(false)
