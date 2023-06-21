@@ -9,28 +9,22 @@ import Sidebar from "@/components/Sidebar"
 import svgError from '@/public/404.svg'
 import Image from "next/image"
 
-export async function getServerSideProps(context: any) {
-    let page = 1;
-    let search = '';
-    if (context.query.page) {
-        page = context.query.page
-    }
-    if (context.query.search) {
-        search = context.query.search
-    }
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts?page=${page}&search=${search}`)
+export async function getStaticProps() {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/all-posts`)
     const data = await res.json();
     moment.locale('id_ID')
-    data.data.data.map((post: any) => {
+    data.data.map((post: any) => {
         post.created_at = moment(post.created_at).fromNow();
     })
     return {
-        props: { posts: data }
+        props: { posts: data },
+        revalidate: 10
     }
 }
 
 export default function Home({ posts }: { posts: any }) {
     const router = useRouter()
+    // return ''
     return (
         <>
             <Head>
@@ -69,15 +63,15 @@ export default function Home({ posts }: { posts: any }) {
                                                 </svg>
                                                 <h1 className="font-semibold text-xl">Berita Terkini</h1>
                                             </div>
-                                            <div className="text-slate-500 text-sm">
+                                            {/* <div className="text-slate-500 text-sm">
                                                 Page {posts.data.current_page} of {posts.data.last_page}
-                                            </div>
+                                            </div> */}
                                         </>
                                     ) : null
                                 }
                             </div>
                             <div className="mt-6 text-himaptika">
-                                {posts.code == 200 ? posts.data.data.map((post: any) => {
+                                {posts.code == 200 ? posts.data.map((post: any) => {
                                     return (
                                         <Link href={`blog/${post.slug}`} key={post.id}>
                                             <div className="my-3">
@@ -111,7 +105,7 @@ export default function Home({ posts }: { posts: any }) {
                                         </p>
                                     </div>
                                 )}
-                                {
+                                {/* {
                                     posts.code == 200 ? (
                                         <div className="flex justify-center">
                                             <nav aria-label="Page navigation example">
@@ -141,7 +135,7 @@ export default function Home({ posts }: { posts: any }) {
                                             </nav>
                                         </div>
                                     ) : null
-                                }
+                                } */}
                             </div>
 
                         </div>

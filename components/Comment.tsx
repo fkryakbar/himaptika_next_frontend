@@ -11,9 +11,10 @@ function Comment({ params }: { params: string }) {
     const [isFound, setFound] = useState(false)
     const router = useRouter()
     const fetch_data = async (slug: string) => {
-        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/comments/${slug}`);
-        if (data.code == 200) {
-            setComments(data.data.data);
+        const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/comments/${slug}`, { next: { tags: ['comments'], revalidate: 500 } });
+        const data_json = await data.json();
+        if (data_json.code == 200) {
+            setComments(data_json.data.data);
             setFound(true)
         } else {
             setComments([]);

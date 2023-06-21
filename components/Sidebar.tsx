@@ -5,7 +5,7 @@ import Youtube from './Youtube'
 function Sidebar() {
     return (
         <>
-            <div className="w-full text-black">
+            {/* <div className="w-full text-black">
                 <form action="/blog" method="GET" autoComplete="off">
                     <div className="input-group w-full">
                         <input type="text" placeholder="Cari" name="search" className="input input-bordered w-full" />
@@ -14,7 +14,7 @@ function Sidebar() {
                         </button>
                     </div>
                 </form>
-            </div>
+            </div> */}
             <div className="flex items-center gap-2 bg-himaptika w-fit rounded p-2 mt-5">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

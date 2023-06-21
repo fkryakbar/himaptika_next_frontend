@@ -10,7 +10,21 @@ import svgError from '@/public/404.svg'
 import Comment from '@/components/Comment'
 import axios from 'axios'
 import Image from 'next/image'
-export async function getServerSideProps(context: any) {
+
+export async function getStaticPaths() {
+    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/all-posts`)
+    const posts = await data.json();
+
+    const paths = posts.data.map((post: any) => ({
+        params: { slug: post.slug }
+    }))
+
+    return { paths, fallback: true }
+
+}
+
+
+export async function getStaticProps(context: any) {
     const slug = context.params.slug
     const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/read-post/${slug}`)
     const json = await data.json()
@@ -21,7 +35,8 @@ export async function getServerSideProps(context: any) {
         props: {
             data: json,
             post_slug: slug
-        }
+        },
+        revalidate: 10
     }
 }
 const update_views = async (post_slug: string) => {

@@ -8,7 +8,7 @@ function RandomPost() {
     const [posts, setPosts] = useState([]);
     const router = useRouter()
     const fetch_data = async () => {
-        const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/random-posts`);
+        const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/random-posts`, { next: { revalidate: 600 } });
         const response = await data.json();
         setPosts(response.data)
         setIsLoading(false)
