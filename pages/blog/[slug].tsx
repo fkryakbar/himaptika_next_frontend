@@ -12,14 +12,12 @@ import axios from 'axios'
 import Image from 'next/image'
 
 export async function getStaticPaths() {
-    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/all-posts`)
+    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts/slug`)
     const posts = await data.json();
-
     const paths = posts.data.map((post: any) => ({
         params: { slug: post.slug }
     }))
-
-    return { paths, fallback: true }
+    return { paths, fallback: false }
 
 }
 

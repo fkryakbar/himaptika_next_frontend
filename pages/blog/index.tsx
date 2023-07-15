@@ -10,10 +10,11 @@ import svgError from '@/public/404.svg'
 import Image from "next/image"
 
 export async function getStaticProps() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/all-posts`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts/slug?paginate=10`)
     const data = await res.json();
+
     moment.locale('id_ID')
-    data.data.map((post: any) => {
+    data.data.data.map((post: any) => {
         post.created_at = moment(post.created_at).fromNow();
     })
     return {
@@ -24,7 +25,6 @@ export async function getStaticProps() {
 
 export default function Home({ posts }: { posts: any }) {
     const router = useRouter()
-    // return ''
     return (
         <>
             <Head>
@@ -71,7 +71,7 @@ export default function Home({ posts }: { posts: any }) {
                                 }
                             </div>
                             <div className="mt-6 text-himaptika">
-                                {posts.code == 200 ? posts.data.map((post: any) => {
+                                {posts.code == 200 ? posts.data.data.map((post: any) => {
                                     return (
                                         <Link href={`blog/${post.slug}`} key={post.id}>
                                             <div className="my-3">
@@ -105,7 +105,7 @@ export default function Home({ posts }: { posts: any }) {
                                         </p>
                                     </div>
                                 )}
-                                {/* {
+                                {
                                     posts.code == 200 ? (
                                         <div className="flex justify-center">
                                             <nav aria-label="Page navigation example">
@@ -113,13 +113,13 @@ export default function Home({ posts }: { posts: any }) {
                                                     <li>
                                                         <Link
                                                             className={`${posts.data.current_page - 1 == 0 ? 'pointer-events-none' : ''} relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 `}
-                                                            href={{ pathname: 'blog', query: { page: posts.data.current_page - 1 == 0 ? 1 : posts.data.current_page - 1 } }} >Previous</Link>
+                                                            href={{ pathname: 'blog/page/[page]', query: { page: posts.data.current_page - 1 == 0 ? 1 : posts.data.current_page - 1 } }} >Previous</Link>
                                                     </li>
                                                     {posts.data.links.map((link: any, key: number) => {
                                                         if (key != 0 && key != posts.data.links.length - 1)
                                                             return (
                                                                 <li key={key}>
-                                                                    <Link href={{ pathname: 'blog', query: { page: link.label } }}
+                                                                    <Link href={{ pathname: 'blog/page/[page]', query: { page: link.label } }}
                                                                         className={`${link.label == posts.data.current_page ? 'text-himaptika' : 'text-neutral-500'} relative block rounded bg-transparent px-3 py-1.5 text-sm  transition-all duration-300 `}
                                                                     >{link.label}</Link>
                                                                 </li>
@@ -129,13 +129,13 @@ export default function Home({ posts }: { posts: any }) {
                                                     <li>
                                                         <Link
                                                             className={`${posts.data.current_page + 1 > posts.data.last_page ? 'pointer-events-none' : ''} relative block rounded bg-transparent px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 `}
-                                                            href={{ pathname: 'blog', query: { page: posts.data.current_page + 1 > posts.data.last_page ? posts.data.last_page : posts.data.current_page + 1 } }} >Next</Link>
+                                                            href={{ pathname: 'blog/page/[page]', query: { page: posts.data.current_page + 1 > posts.data.last_page ? posts.data.last_page : posts.data.current_page + 1 } }} >Next</Link>
                                                     </li>
                                                 </ul>
                                             </nav>
                                         </div>
                                     ) : null
-                                } */}
+                                }
                             </div>
 
                         </div>
