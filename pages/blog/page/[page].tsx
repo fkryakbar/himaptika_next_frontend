@@ -1,30 +1,53 @@
-import Hero from "@/components/Hero"
-import Navbar from "@/components/Navbar"
-import Head from "next/head"
-import Footer from "@/components/Footer"
-import Link from "next/link"
-import moment from "moment"
-import { useRouter } from "next/router"
-import Sidebar from "@/components/Sidebar"
+import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
+import moment from "moment";
 import svgError from '@/public/404.svg'
+import Head from "next/head";
+import Link from "next/link";
 import Image from "next/image"
 
-export async function getStaticProps() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts/slug?paginate=10`)
-    const data = await res.json();
 
-    moment.locale('id_ID')
-    data.data.data.map((post: any) => {
-        post.created_at = moment(post.created_at).fromNow();
-    })
-    return {
-        props: { posts: data },
-        revalidate: 10
+export async function getStaticPaths() {
+    const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts/slug?paginate=10`);
+    const page_data = await data.json();
+    let page: Array<string | { params: { [key: string]: string } }> = []
+
+    for (let i = 1; i <= page_data.data.last_page; i++) {
+        let object = {
+            params: { page: i.toString() }
+        }
+        page.push(object)
     }
+    return { paths: page, fallback: false }
+
+}
+export async function getStaticProps(context: any) {
+    moment.locale('id_ID')
+    const page = context.params.page
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/posts/slug?paginate=10&page=${page}`)
+    let data = await res.json();
+    if (data.data.length == 0) {
+        return {
+            props: { posts: { code: 404, message: 'Not Found' } },
+            revalidate: 10
+        }
+    } else {
+        data.data.data.map((post: any) => {
+            post.created_at = moment(post.created_at).fromNow();
+        })
+        return {
+            props: { posts: data },
+            revalidate: 10
+        }
+
+    }
+
 }
 
-export default function Home({ posts }: { posts: any }) {
-    const router = useRouter()
+export default function Page({ posts }: any) {
     return (
         <>
             <Head>
@@ -119,7 +142,7 @@ export default function Home({ posts }: { posts: any }) {
                                                         if (key != 0 && key != posts.data.links.length - 1)
                                                             return (
                                                                 <li key={key}>
-                                                                    <Link href={{ pathname: 'blog/page/[page]', query: { page: link.label } }}
+                                                                    <Link href={{ pathname: '/blog/page/[page]', query: { page: link.label } }}
                                                                         className={`${link.label == posts.data.current_page ? 'text-himaptika' : 'text-neutral-500'} relative block rounded bg-transparent px-3 py-1.5 text-sm  transition-all duration-300 `}
                                                                     >{link.label}</Link>
                                                                 </li>
@@ -149,4 +172,5 @@ export default function Home({ posts }: { posts: any }) {
 
         </>
     )
+
 }
