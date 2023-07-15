@@ -20,7 +20,7 @@ export async function getStaticPaths() {
         }
         page.push(object)
     }
-    return { paths: page, fallback: false }
+    return { paths: page, fallback: 'blocking' }
 
 }
 export async function getStaticProps(context: any) {
