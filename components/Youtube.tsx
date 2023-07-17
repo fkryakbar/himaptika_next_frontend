@@ -1,19 +1,17 @@
 import axios from 'axios'
-import React, { useState } from 'react'
-import Loading from './Loading';
+import useSWR from 'swr';
 
+const Loading = () => {
+    return <>
+        <div className='h-32 w-full rounded-xl bg-gray-200 animate-pulse mt-4'></div>
+    </>
+}
 
+const fetcher = (url: string) => fetch(url).then(r => r.json())
 
 function Youtube() {
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [video_id, setVideo_id] = useState('');
-    const fetch_data = async () => {
-        const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/youtube_link`);
-        setVideo_id(data.data.data.video_id);
-        setIsLoading(false)
-    }
-    fetch_data();
+    const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/youtube_link`, fetcher);
 
     const iframe = (id: string) => {
         return (
@@ -29,7 +27,7 @@ function Youtube() {
     return (
         <>
             {
-                isLoading ? <Loading /> : iframe(video_id)
+                isLoading ? <Loading /> : iframe(data.data.video_id)
             }
         </>
     )

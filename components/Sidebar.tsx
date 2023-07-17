@@ -1,20 +1,29 @@
-import React from 'react'
+import React, { FormEvent } from 'react'
 import RandomPost from './RandomPost'
 import Youtube from './Youtube'
+import { useRouter } from 'next/navigation'
 
 function Sidebar() {
+    const router = useRouter()
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const searchParams = formData.get('search')
+        router.push(`/blog/search/${searchParams}`)
+
+    }
     return (
         <>
-            {/* <div className="w-full text-black">
-                <form action="/blog" method="GET" autoComplete="off">
+            <div className="w-full text-black">
+                <form method="POST" action="" onSubmit={handleSubmit} autoComplete="off">
                     <div className="input-group w-full">
-                        <input type="text" placeholder="Cari" name="search" className="input input-bordered w-full" />
+                        <input type="text" placeholder="Cari" name="search" className="input input-bordered w-full" required />
                         <button type="submit" className="btn btn-square bg-himaptika border-0 hover:bg-red-900">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                         </button>
                     </div>
                 </form>
-            </div> */}
+            </div>
             <div className="flex items-center gap-2 bg-himaptika w-fit rounded p-2 mt-5">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

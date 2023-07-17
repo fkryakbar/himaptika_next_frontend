@@ -3,25 +3,15 @@ import Loading from './Loading';
 import moment from 'moment';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
+const fetcher = (url: string) => fetch(url).then(r => r.json())
 function RandomPost() {
-    const [isLoading, setIsLoading] = useState(true);
-    const [posts, setPosts] = useState([]);
-    const router = useRouter()
-    const fetch_data = async () => {
-        const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/random-posts`, { next: { revalidate: 600 } });
-        const response = await data.json();
-        setPosts(response.data)
-        setIsLoading(false)
-    }
-
-    useEffect(() => {
-        fetch_data()
-    }, [router.query.slug])
+    const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/random-posts`, fetcher);
     return (
         <>
             <div className='text-himaptika'>
                 {
-                    isLoading ? <Loading /> : posts.map((post: any) => {
+                    isLoading ? <Loading /> : data.data.map((post: any) => {
                         return (
                             <Link href={`/blog/${post.slug}`} key={post.id} className='my-4 block text-slate-700'>
                                 <div className='text-xl font-semibold '>
@@ -30,7 +20,6 @@ function RandomPost() {
                                 <div className='text-sm'>
                                     {post.description}
                                 </div>
-
                                 <hr className='mt-2' />
                             </Link >
                         )
