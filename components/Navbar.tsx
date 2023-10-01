@@ -6,7 +6,7 @@ import Image from 'next/image';
 export default function Navbar() {
     const [isOpen, setOpen] = useState(false)
     return (
-        <nav className='bg-himaptika w-full p-2 text-sm drop-shadow-md'>
+        <nav className='bg-himaptika w-full p-2 text-sm shadow-md'>
             <div className='lg:w-[80%] mx-auto lg:flex justify-between items-center'>
                 <div className='flex justify-between'>
                     <Link href="/">

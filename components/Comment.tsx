@@ -41,7 +41,7 @@ function Comment({ params }: { params: string }) {
                     comments.map((comment: any, key: number) => {
                         return (
                             <div key={key} className='my-3'>
-                                <div className='rounded overflow-clip mt-3 drop-shadow'>
+                                <div className='rounded overflow-clip mt-3 shadow'>
                                     <div className='bg-himaptika text-white p-2 flex justify-between items-center'>
                                         <div className='flex flex-col'>
                                             <p>{comment.name}</p>

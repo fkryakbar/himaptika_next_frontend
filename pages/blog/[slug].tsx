@@ -78,7 +78,7 @@ function Read({ data, post_slug }: any) {
             </Hero>
             <section className="min-h-screen text-slate-700 mt-4">
                 <div className="lg:w-[80%] mx-auto p-3">
-                    <div className='rounded-lg lg:drop-shadow-md bg-white min-h-screen lg:p-4 p-3 flex lg:flex-row flex-col gap-5'>
+                    <div className='rounded-lg lg:shadow-md bg-white min-h-screen lg:p-4 p-3 flex lg:flex-row flex-col gap-5'>
                         <div className='basis-[70%]'>
                             <div className="text-sm breadcrumbs">
                                 <ul>

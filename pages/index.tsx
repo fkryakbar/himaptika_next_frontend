@@ -57,7 +57,7 @@ export default function Home({ posts }: { posts: Response }) {
               {
                 posts.data.map((post: any, index: number) => {
                   return (<Link key={post.id} href={`/blog/${post.slug}`} className="basis-[33%]">
-                    <div className="rounded-xl drop-shadow overflow-clip bg-white pb-1">
+                    <div className="rounded-xl shadow overflow-clip bg-white pb-1">
                       <Image width={300} height={300} src={`${post.image_path}`} alt="dump" className="basis-[30%] w-full" />
                       <div className="my-5 text-himaptika mx-3">
                         <h1 className="font-semibold text-xl">
@@ -91,7 +91,7 @@ export default function Home({ posts }: { posts: Response }) {
 
               </div>
             </div>
-            <div className="drop-shadow-md bg-white rounded-md overflow-clip mt-2">
+            <div className="shadow-md bg-white rounded-md overflow-clip mt-2">
               <div className="bg-himaptika text-white p-2  font-semibold flex justify-between items-center">
                 <h1>
                   Kenali Kami
@@ -118,7 +118,7 @@ export default function Home({ posts }: { posts: Response }) {
                 </svg>
               </div>
             </div>
-            <div className="drop-shadow-md bg-white rounded-md overflow-clip mt-2 mb-5">
+            <div className="shadow-md bg-white rounded-md overflow-clip mt-2 mb-5">
               <div className="bg-himaptika text-white p-2  font-semibold flex justify-between items-center">
                 <h1>
                   IKAHIMATIKA
